@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
+  const [counter, setCounter] = useState(2);
+  const [timer, setTimer] = useState(0);
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    setInterval(() => {
+      setTimer((prevTimer) => prevTimer + 1);
+      setDate(new Date());
+    }, 1000);
+  }, []);
+
+  const onClick = () => {
+    setCounter((prevCounter) => prevCounter + 1);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        Date: {date.getHours()}: {date.getMinutes()}: {date.getSeconds()}
+      </div>
+      <div className="counter">Timer : {timer}</div>
+      <div className="counter">Counter: {counter}</div>
+      <button className="button" onClick={onClick}>
+        normal button
+      </button>
     </div>
   );
 }
